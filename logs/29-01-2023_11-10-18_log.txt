@@ -1,0 +1,115 @@
+ >>>>>>>>>>>>> Driver Running  <<<<<<<<<<<<<
+clear_all - started
+clear_all_for_collection - started: Collection
+Pointing camera at origin
+append_from_file - started: path: C:\Users\krose\Desktop\Hobbies\Graphics\Blender\Sacred_Geometry\autogeneration\generator\..\Materials\materials.blend collection_name: Materials
+get_target_materials - started
+clear_all_for_collection - started: Petals
+append_from_file - started: path: C:\Users\krose\Desktop\Hobbies\Graphics\Blender\Sacred_Geometry\autogeneration\generator\..\Petals\petals_001.blend collection_name: Petals
+clear_all_for_collection - started: Centers
+append_from_file - started: path: C:\Users\krose\Desktop\Hobbies\Graphics\Blender\Sacred_Geometry\autogeneration\generator\..\Centers\barely_petaled.blend collection_name: Centers
+all_meshes_in_scene - started
+update_all_meshes_with_material - started: Brushed Chrome
+align_camera_to_active_objects - started
+render_file - started: ['C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Petals\\petals_001.blend', 'C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Centers\\barely_petaled.blend', 'Brushed Chrome']
+render_file - finished
+all_meshes_in_scene - started
+update_all_meshes_with_material - started: Shiny Copper
+align_camera_to_active_objects - started
+render_file - started: ['C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Petals\\petals_001.blend', 'C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Centers\\barely_petaled.blend', 'Shiny Copper']
+render_file - finished
+all_meshes_in_scene - started
+update_all_meshes_with_material - started: Metallic Rose Gold
+align_camera_to_active_objects - started
+render_file - started: ['C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Petals\\petals_001.blend', 'C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Centers\\barely_petaled.blend', 'Metallic Rose Gold']
+render_file - finished
+all_meshes_in_scene - started
+update_all_meshes_with_material - started: Sandblast Iron
+align_camera_to_active_objects - started
+render_file - started: ['C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Petals\\petals_001.blend', 'C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Centers\\barely_petaled.blend', 'Sandblast Iron']
+render_file - finished
+all_meshes_in_scene - started
+update_all_meshes_with_material - started: Shiny Gold
+align_camera_to_active_objects - started
+render_file - started: ['C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Petals\\petals_001.blend', 'C:\\Users\\krose\\Desktop\\Hobbies\\Graphics\\Blender\\Sacred_Geometry\\autogeneration\\generator\\..\\Centers\\barely_petaled.blend', 'Shiny Gold']
+render_file - finished
+clear_all - started
+clear_all_for_collection - started: Appended Data
+clear_all_for_collection - started: Appended Data.001
+clear_all_for_collection - started: Appended Data.002
+clear_all_for_collection - started: Bar group
+clear_all_for_collection - started: Bar group.001
+clear_all_for_collection - started: Bars
+clear_all_for_collection - started: Centers
+clear_all_for_collection - started: Flat ring
+clear_all_for_collection - started: Flat ring.001
+clear_all_for_collection - started: Flat ring.002
+clear_all_for_collection - started: flat rings
+clear_all_for_collection - started: hex ring
+clear_all_for_collection - started: Hexagonal ring
+clear_all_for_collection - started: inner bars
+clear_all_for_collection - started: inner lines
+clear_all_for_collection - started: Inner ring
+clear_all_for_collection - started: Inner row
+clear_all_for_collection - started: inner sphere
+clear_all_for_collection - started: Materials
+clear_all_for_collection - started: Metals
+clear_all_for_collection - started: Other
+clear_all_for_collection - started: outer lines
+clear_all_for_collection - started: Outer row
+clear_all_for_collection - started: outer spheres
+clear_all_for_collection - started: Petal 1 group
+clear_all_for_collection - started: Petal 1.001
+clear_all_for_collection - started: Petal 4
+clear_all_for_collection - started: Petal 4 group
+clear_all_for_collection - started: Petal 5
+clear_all_for_collection - started: Petal 5 group
+clear_all_for_collection - started: Petal 5 group.001
+clear_all_for_collection - started: Petal 5.001
+clear_all_for_collection - started: Petal 8
+clear_all_for_collection - started: petal 8
+clear_all_for_collection - started: Petal 8 group
+clear_all_for_collection - started: Petal 8 group.001
+clear_all_for_collection - started: Petal 8 group.002
+clear_all_for_collection - started: Petal 8 inner
+clear_all_for_collection - started: Petal 8 outer
+clear_all_for_collection - started: Petal 9
+clear_all_for_collection - started: Petal 9 group
+clear_all_for_collection - started: Petals
+clear_all_for_collection - started: ring spheres
+clear_all_for_collection - started: Second ring
+clear_all_for_collection - started: Second row
+clear_all_for_collection - started: Solid colors
+clear_all_for_collection - started: Sphere group
+clear_all_for_collection - started: Sphere group.001
+clear_all_for_collection - started: Sphere group.002
+clear_all_for_collection - started: Sphere group.003
+clear_all_for_collection - started: Sphere middle
+clear_all_for_collection - started: Sphere outer
+clear_all_for_collection - started: Spheres
+clear_all_for_collection - started: spheres
+clear_all_for_collection - started: Spheres inner
+clear_all_for_collection - started: Spheres.001
+clear_all_for_collection - started: Stones
+clear_all_for_collection - started: Third row
+clear_all_for_collection - started: Triangle group
+clear_all_for_collection - started: Triangles
+clear_all_for_collection - started: Woods
+------------- Execution Stats -------------
+Stat: clear_all, Collection: None, Count: 2, Msg: None
+Stat: append_for_collection, Collection: Materials, Count: 1, Msg: None
+Stat: append_for_collection, Collection: Petals, Count: 1, Msg: None
+Stat: append_for_collection, Collection: Centers, Count: 1, Msg: None
+Stat: camera_align, Collection: None, Count: 5, Msg: None
+Stat: render, Collection: None, Count: 5, Msg: None
+------------- Execution Times -------------
+clear_all: 0.013989925384521484
+clear_collection: 0
+get_meshes: 0.05902838706970215
+update_meshes: 0.11002182960510254
+get_materials: 0.0
+append: 1.8804121017456055
+render: 28.28467631340027
+camera_align: 1.6023666858673096
+execution: 32.90690565109253
+ >>>>>>>>>>>>> Driver Complete <<<<<<<<<<<<<

@@ -1,0 +1,39 @@
+{
+    "collections": {
+        "1": "Centers",
+        "2": "Materials",
+        "0": "Petals"
+    },
+    "constants": [
+    ],
+    "material_collections": [
+        "Materials"
+    ],
+    "parameters": {
+        "enable_blacklist": false,
+        "enable_whitelist": false,
+        "enable_logging": false,
+        "enable_stat_tracking": true,
+        "enable_time_tracking": true,
+        "overwrite_all": true
+    },
+    "paths": {
+        "blender_collection_path": "\\Collection\\",
+        "blender_exe": "blender.exe",
+        "blender_file_extension": ".blend",
+        "driver": "src\\driver.py",
+        "log_dir": "logs",
+        "main_file": "blend_file\\mandala_generator.blend",
+        "output_dir": "..\\mandalas",
+        "search_dir": ".."
+    },
+    "blacklist": [
+    ],
+    "whitelist": [
+    ],
+    "orthographic_components": [
+        "honeycomb",
+        "hexagonalcubefractal"
+    ]
+}
+

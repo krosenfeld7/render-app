@@ -1,0 +1,39 @@
+{
+    "render_settings": {
+        "render_engine": "BLENDER_EEVEE",
+        "resolution_x": 2560,
+        "resolution_y": 2560,
+        "resolution_percentage": 100,
+        "use_border": false,
+        "film_transparent": true
+    },
+    "eevee_settings": {
+        "samples": 64,
+        "bloom": false,
+        "ambient_occlusion": false
+    },
+    "cycles_settings": {
+        "samples": 32,
+        "device": "GPU"
+    },
+    "scene_settings": {
+        "frame_start": 1,
+        "frame_end": 1
+    },
+    "view_settings": {
+        "look": "Very High Contrast",
+        "view_transform": "Filmic"
+    },
+    "image_settings": {
+        "file_format": "PNG",
+        "color_mode": "RGBA",
+        "color_depth": "16"
+    },
+    "background_settings": {
+        "default_emission": 1.0,
+        "emission_step": 0.25,
+        "max_emission": 2.0,
+        "emission_color": [1.0, 1.0, 1.0, 1.0],
+        "enable_emission_variable_rendering": true
+    }
+}
