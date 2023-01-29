@@ -23,7 +23,7 @@
         "blender_file_extension": ".blend",
         "driver": "src\\driver.py",
         "log_dir": "logs",
-        "main_file": "blend_file\\mandala_generator.blend",
+        "main_file": "blend_file\\template_generator.blend",
         "output_dir": "..\\mandalas",
         "search_dir": ".."
     },
