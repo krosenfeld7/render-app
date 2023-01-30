@@ -15,16 +15,17 @@ class DirectoryParser:
         self._file_extension = file_extension
 
     def parse(self) -> dict:
-        files_by_directories = defaultdict(lambda: list())
+        files_by_directories = dict()
         for directory in self._directories:
             dir_path = path.join(self._root_dir, directory)
-
+            directory_list = list()
             for file_name in listdir(dir_path):
                 file_path = path.join(dir_path, file_name)
-                if path.isfile(file_path) and file_path.endswith(self._file_extension):
-                    files_by_directories[directory].append(file_path)
+                if path.isfile(file_path) and \
+                        file_path.endswith(self._file_extension):
+                    directory_list.append(file_path)
 
-                files_by_directories[directory].sort()
+            files_by_directories[directory] = sorted(directory_list)
 
         return files_by_directories
 

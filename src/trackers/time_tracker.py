@@ -1,8 +1,7 @@
 from time import time
 from typing import Optional
 
-from src.classes.exceptions import TimeTypeNotFoundException, \
-                                   CollectionNotFoundException
+from src.classes.exceptions import TimeTypeNotFoundException
 from src.parsers.settings_parser import app_settings, type_settings
 from src.trackers.logger import logger
 
@@ -85,7 +84,8 @@ class TimeTracker:
         if app_settings().parameters().time_tracking_enabled():
             logger().info("------------- Execution Times -------------")
             for time_type in self._time_types:
-                total_time_by_type = sum(report.get_elapsed() for report in self._aggregate_by_type(time_type))
+                total_time_by_type = sum(report.get_elapsed()
+                                         for report in self._aggregate_by_type(time_type))
                 logger().info(time_type + ": " + str(total_time_by_type))
 
 

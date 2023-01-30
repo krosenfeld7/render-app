@@ -5,7 +5,6 @@ from src.parsers.settings_parser import app_settings
 from src.trackers.logger import logger
 from src.trackers.stat_tracker import stat_tracker
 from src.trackers.time_tracker import time_tracker
-from src.utilities.clear_utility import ClearUtility
 
 
 class AppendUtility:
@@ -14,8 +13,6 @@ class AppendUtility:
     def append_from_file(file_path: str,
                          collection: str) -> None:
         time_tracker().start("append", collection)
-        logger().info("append_from_file - started: path: " + str(file_path)
-                      + " collection_name: " + str(collection))
 
         collection_path = file_path + app_settings().paths().blender_collection()
         ops.wm.append(filename=collection,

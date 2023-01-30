@@ -6,13 +6,11 @@
     },
     "constants": [
     ],
-    "material_collections": [
-        "Materials"
-    ],
+    "material_collection": "Materials",
     "parameters": {
         "enable_blacklist": false,
-        "enable_whitelist": false,
-        "enable_logging": false,
+        "enable_whitelist": true,
+        "enable_logging": true,
         "enable_stat_tracking": true,
         "enable_time_tracking": true,
         "overwrite_all": true
@@ -24,12 +22,15 @@
         "driver": "src\\driver.py",
         "log_dir": "logs",
         "main_file": "blend_file\\template_generator.blend",
-        "output_dir": "..\\mandalas",
+        "output_dir": "..\\output",
         "search_dir": ".."
     },
     "blacklist": [
     ],
     "whitelist": [
+        "petals009",
+        "vectoreqsharp",
+        "all_materials"
     ],
     "orthographic_components": [
         "honeycomb",

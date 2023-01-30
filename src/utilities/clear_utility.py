@@ -32,7 +32,6 @@ class ClearUtility:
     @staticmethod
     def clear_collection(collection: str) -> None:
         time_tracker().start("clear_all", collection)
-        logger().info("clear_all_for_collection - started: " + str(collection))
 
         if collection in data.collections.keys():
             objs_to_remove = list()
@@ -57,7 +56,6 @@ class ClearUtility:
     @staticmethod
     def clear_all() -> None:
         time_tracker().start("clear_all")
-        logger().info("clear_all - started")
 
         ClearUtility.clear_materials()
         ClearUtility.clear_objects()

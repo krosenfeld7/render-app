@@ -1,7 +1,6 @@
 from typing import Optional
 
-from src.classes.exceptions import StatTypeNotFoundException, \
-                                             CollectionNotFoundException
+from src.classes.exceptions import StatTypeNotFoundException
 from src.parsers.settings_parser import app_settings, type_settings
 from src.trackers.logger import logger
 
@@ -34,10 +33,14 @@ class StatTracker:
             self._count += 1
 
         def __str__(self) -> str:
-            return "Stat: " + self._stat \
-                   + ", Collection: " + str(self._collection) \
-                   + ", Count: " + str(self._count) \
-                   + ", Msg: " + str(self._msg)
+            stat_str = "Stat: " + self._stat
+            if self._collection is not None:
+                stat_str += ", Collection: " + str(self._collection)
+            if self._msg is not None:
+                stat_str += ", Msg: " + str(self._msg)
+
+            stat_str += ", Count: " + str(self._count)
+            return stat_str
 
     def __init__(self,
                  stat_types: list,
@@ -55,12 +58,10 @@ class StatTracker:
 
         stat_key = (stat_type, collection)
         if stat_key not in self._stats_report:
-            self._stats_report[stat_key] = StatTracker.StatReport(stat_type, collection, msg)
+            self._stats_report[stat_key] = \
+                StatTracker.StatReport(stat_type, collection, msg)
         else:
             self._stats_report[stat_key].increase_count()
-
-    def _sort_stats_report(self) -> None:
-        self._stats_report.sort(key=lambda x: (x.get_stat_type(), x.get_collection()))
 
     def report_stats(self) -> None:
         if app_settings().parameters().stat_tracking_enabled():

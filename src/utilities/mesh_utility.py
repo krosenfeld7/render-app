@@ -21,11 +21,10 @@ class MeshUtility:
     @staticmethod
     def all_meshes_in_scene() -> set:
         time_tracker().start("get_meshes")
-        logger().info("all_meshes_in_scene - started")
 
         meshes = set()
         for collection in data.collections:
-            if collection.name not in app_settings().material_collections():
+            if collection.name not in app_settings().material_collection():
                 for obj in collection.all_objects:
                     if obj.type == 'MESH':
                         meshes.add(obj)

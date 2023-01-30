@@ -1,23 +1,22 @@
 from bpy import data
 from typing import Any
 
-from src.trackers.logger import logger
+from src.parsers.settings_parser import app_settings
 from src.trackers.time_tracker import time_tracker
+from src.utilities.append_utility import AppendUtility
 
 
 class MaterialUtility:
 
     @staticmethod
-    def get_materials(material_collections: list) -> list:
+    def aggregate_materials(material_collection: str) -> list:
         time_tracker().start("get_materials")
-        logger().info("get_target_materials - started")
 
         materials = list()
-        for material_collection in material_collections:
-            if material_collection in data.collections:
-                for obj in data.collections[material_collection].all_objects:
-                    if obj.type == 'MESH':
-                        materials.extend(obj.data.materials)
+        if material_collection in data.collections:
+            for obj in data.collections[material_collection].all_objects:
+                if obj.type == 'MESH':
+                    materials.extend(obj.data.materials)
 
         time_tracker().end("get_materials")
         return materials
@@ -26,10 +25,26 @@ class MaterialUtility:
     def update_meshes_with_material(meshes: set,
                                     target_material: Any) -> None:
         time_tracker().start("update_meshes")
-        logger().info("update_all_meshes_with_material - started: " + str(target_material.name))
 
         for mesh in meshes:
             mesh.data.materials.clear()
             mesh.data.materials.append(target_material)
 
         time_tracker().end("update_meshes")
+
+    @staticmethod
+    def get_materials(files: dict) -> list:
+        for file in files[app_settings().material_collection()]:
+            AppendUtility.append_from_file(file, app_settings().material_collection())
+
+        return MaterialUtility.aggregate_materials(app_settings().material_collection())
+
+    @staticmethod
+    def get_immaterial_collections() -> list:
+        collections = sorted(app_settings().collections().keys())
+        non_material_collections_by_priority = list()
+        for collection in collections:
+            if app_settings().collections()[collection] not in app_settings().material_collection():
+                non_material_collections_by_priority.append(app_settings().collections()[collection])
+
+        return non_material_collections_by_priority

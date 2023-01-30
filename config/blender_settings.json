@@ -8,7 +8,7 @@
         "film_transparent": true
     },
     "eevee_settings": {
-        "samples": 64,
+        "samples": 128,
         "bloom": false,
         "ambient_occlusion": false
     },
@@ -34,6 +34,8 @@
         "emission_step": 0.25,
         "max_emission": 2.0,
         "emission_color": [1.0, 1.0, 1.0, 1.0],
-        "enable_emission_variable_rendering": true
+        "enable_emission_variable_rendering": false,
+        "use_hdri": true,
+        "hdri": "hdris\\city.exr"
     }
 }

@@ -18,17 +18,14 @@ class Camera:
         #self._camera_perspective = self._camera.data.type
         self._scene_name = scene_name
 
-    """
-    def _get_camera_perspective(self) -> str:
-        for obj in context.scene.objects:
-            if obj is not None and obj.name == self._camera_name and obj.type == 'CAMERA':
-                return obj.data.type
-    """
+    def set_camera_to_perspective(self,
+                                  perspective: bool) -> None:
+        self.set_camera_perspective('PERSP' if perspective else 'ORTHO')
 
     def set_camera_perspective(self,
                                perspective: str) -> None:
         #if perspective != self._camera.data.type:
-        stat_tracker().update_stat("camera_persp")
+        stat_tracker().update_stat("camera_persp", msg=perspective)
         self._camera.data.type = perspective
         # TODO: ENSURE THIS WORKS
         """
@@ -41,12 +38,7 @@ class Camera:
                 prev_camera_perspective = obj.data.type
         """
 
-        # move this call to wherever this is executed from
-        #Camera.align_camera_to_active_objects()
-
     def point_camera_at_origin(self) -> None:
-        logger().info("Pointing camera at origin")
-
         if self._camera is None:
             raise CameraNotFoundException("No camera present in the scene")
 
@@ -65,11 +57,10 @@ class Camera:
     @staticmethod
     def align_camera_to_active_objects():
         time_tracker().start("camera_align")
-        logger().info("align_camera_to_active_objects - started")
 
         objs_hide_from_render = list()
         for collection in data.collections:
-            if collection.name in app_settings().material_collections():
+            if collection.name in app_settings().material_collection():
                 for obj in collection.all_objects:
                     if obj.type == 'MESH':
                         objs_hide_from_render.append(obj)

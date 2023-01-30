@@ -8,13 +8,13 @@ class AppSettings:
                  parameters: dict,
                  paths: dict,
                  constants: Optional[list] = None,
-                 material_collections: Optional[list] = None,
+                 material_collection: str = '',
                  blacklist: Optional[list] = None,
                  whitelist: Optional[list] = None,
                  orthographic_components: Optional[list] = None) -> None:
         self._constants = constants
         self._collections = collections
-        self._material_collections = material_collections
+        self._material_collection = material_collection
         self._parameters = AppSettings.Parameters(**parameters)
         self._paths = AppSettings.Paths(**paths)
         self._blacklist = blacklist
@@ -27,8 +27,8 @@ class AppSettings:
     def constants(self) -> Optional[list]:
         return self._constants
 
-    def material_collections(self) -> Optional[list]:
-        return self._material_collections
+    def material_collection(self) -> str:
+        return self._material_collection
 
     def parameters(self) -> 'AppSettings.Parameters':
         return self._parameters
@@ -42,6 +42,10 @@ class AppSettings:
     def whitelist(self) -> Optional[list]:
         return self._whitelist
 
+    def check_for_orthographic_components(self, components: list) -> bool:
+        return any(component in components
+                   for component in self.orthographic_components())
+
     def orthographic_components(self) -> Optional[list]:
         return self._orthographic_components
 
@@ -54,10 +58,14 @@ class AppSettings:
         return entry in self._whitelist
 
     def validate_entry(self,
-                       entry: str) -> bool:
+                       entry: str,
+                       collection='None') -> bool:
         if self._parameters.blacklist_enabled():
             return self.validate_against_blacklist(entry)
         elif self._parameters.whitelist_enabled():
+            if 'all_' + collection.lower() in self._whitelist:
+                return True
+
             return self.validate_against_whitelist(entry)
 
         return True
@@ -298,13 +306,17 @@ class BlenderSettings:
                      default_emission: Optional[float] = None,
                      emission_step: Optional[float] = None,
                      max_emission: Optional[float] = None,
-                     enable_emission_variable_rendering=False) -> None:
+                     enable_emission_variable_rendering=False,
+                     use_hdri=False,
+                     hdri='') -> None:
             self._default_emission = default_emission
             self._emission_step = emission_step
             self._max_emission = max_emission
             self._emission_color = emission_color
             self._enable_emission_variable_rendering = \
                 enable_emission_variable_rendering
+            self._use_hdri = use_hdri
+            self._hdri = hdri
 
         def default_emission(self) -> Optional[float]:
             return self._default_emission
@@ -320,6 +332,15 @@ class BlenderSettings:
 
         def emission_variability_enabled(self) -> bool:
             return self._enable_emission_variable_rendering
+
+        def hdri_enabled(self) -> bool:
+            return self._use_hdri
+
+        def hdri(self) -> str:
+            return self._hdri
+
+        def hdri_path(self) -> str:
+            return path.join(getcwd(), self._hdri)
 
 
 class TypeSettings:
