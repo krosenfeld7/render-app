@@ -1,5 +1,4 @@
 from subprocess import run
-from typing import Optional
 
 import os
 

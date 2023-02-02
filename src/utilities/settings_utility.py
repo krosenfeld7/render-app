@@ -31,6 +31,7 @@ class SettingsUtility:
         view_settings = blender_settings().view_settings()
         scene.view_settings.look = view_settings.look()
         scene.view_settings.view_transform = view_settings.view_transform()
+        scene.view_settings.exposure = view_settings.exposure()
 
     @staticmethod
     def update_scene_settings(scene: Any) -> None:

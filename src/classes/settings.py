@@ -228,15 +228,20 @@ class BlenderSettings:
     class ViewSettings:
         def __init__(self,
                      look: str,
-                     view_transform: str) -> None:
+                     view_transform: str,
+                     exposure: float) -> None:
             self._look = look
             self._view_transform = view_transform
+            self._exposure = exposure
 
         def look(self) -> str:
             return self._look
 
         def view_transform(self) -> str:
             return self._view_transform
+
+        def exposure(self) -> float:
+            return self._exposure
 
     class SceneSettings:
         def __init__(self,

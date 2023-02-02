@@ -81,12 +81,20 @@ class TimeTracker:
         return reports_by_type
 
     def report_times(self) -> None:
+        total_exec_time = 0
+        for time_report in self._time_report:
+            if time_report.get_time_type() == 'execution':
+                total_exec_time += time_report.get_elapsed()
+
         if app_settings().parameters().time_tracking_enabled():
             logger().info("------------- Execution Times -------------")
+            logger().info("Type, % of Total, Total Time")
             for time_type in self._time_types:
                 total_time_by_type = sum(report.get_elapsed()
                                          for report in self._aggregate_by_type(time_type))
-                logger().info(time_type + ": " + str(total_time_by_type))
+                logger().info(time_type
+                              + str(", {0:.2f}%".format(total_time_by_type/total_exec_time * 100))
+                              + ", " + str(total_time_by_type))
 
 
 _instance = None

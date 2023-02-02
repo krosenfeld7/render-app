@@ -22,12 +22,12 @@ class RenderUtility:
 
     @staticmethod
     def render_file(file_components: list) -> None:
-        time_tracker().start("render")
         file_name = RenderUtility.file_name_for_components(file_components)
         if path.exists(file_name) and not app_settings().parameters().overwrite():
             logger().info("Already exists, skipping: " + file_name)
             return
 
+        time_tracker().start("render")
         context.scene.render.filepath = file_name
         ops.render.render(write_still=True)
 
