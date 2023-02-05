@@ -10,7 +10,15 @@ class DirectoryNotFoundException(Exception):
     pass
 
 
+class InvalidConfigurationException(Exception):
+    pass
+
+
 class InvalidFileException(Exception):
+    pass
+
+
+class InvalidHDRIException(Exception):
     pass
 
 

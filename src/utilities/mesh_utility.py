@@ -19,15 +19,33 @@ class MeshUtility:
             logger().error("cleanup_non_meshes - invalid collection: " + collection)
 
     @staticmethod
+    def meshes_in_collection(collection) -> set:
+        meshes = set()
+        for obj in collection.all_objects:
+            if obj.type == 'MESH':
+                meshes.add(obj)
+
+        return meshes
+
+    @staticmethod
     def all_meshes_in_scene() -> set:
         time_tracker().start("get_meshes")
 
         meshes = set()
         for collection in data.collections:
             if collection.name not in app_settings().material_collection():
-                for obj in collection.all_objects:
-                    if obj.type == 'MESH':
-                        meshes.add(obj)
+                meshes.update(MeshUtility.meshes_in_collection(collection))
+
+        time_tracker().end("get_meshes")
+        return meshes
+
+    @staticmethod
+    def all_meshes_in_collection(collection_name: str) -> set:
+        time_tracker().start("get_meshes")
+        meshes = set()
+        for collection in data.collections:
+            if collection.name == collection_name:
+                meshes.update(MeshUtility.meshes_in_collection(collection))
 
         time_tracker().end("get_meshes")
         return meshes

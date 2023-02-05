@@ -25,7 +25,6 @@ class ValidationUtility:
                                                 CleanUtility.clean_file_component(file),
                                                 file_list,
                                                 directory)
-
         return validated_files
 
     @staticmethod

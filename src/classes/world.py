@@ -21,10 +21,10 @@ class World:
                     background_settings.emission_color()
                 node.inputs['Strength'].default_value = emission_value
 
-    def set_hdri(self) -> None:
-        background_settings = blender_settings().background_settings()
+    def set_hdri(self,
+                 hdri_path: str) -> None:
         node_env = self._world_scene.node_tree.nodes.new('ShaderNodeTexEnvironment')
-        node_env.image = data.images.load(background_settings.hdri_path())
+        node_env.image = data.images.load(hdri_path)
         node_env.location = -300, 0
 
         node_background = None

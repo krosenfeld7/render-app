@@ -8,9 +8,9 @@
         "film_transparent": true
     },
     "eevee_settings": {
-        "samples": 128,
-        "bloom": false,
-        "ambient_occlusion": false
+        "samples": 64,
+        "bloom": true,
+        "ambient_occlusion": true
     },
     "cycles_settings": {
         "samples": 32,
@@ -22,7 +22,12 @@
     },
     "view_settings": {
         "look": "Very High Contrast",
-        "view_transform": "Filmic"
+        "view_transform": "Filmic",
+        "default_exposure": 0.0,
+        "exposure_step": 0.5,
+        "start_exposure": 0.0,
+        "end_exposure": 0.0,
+        "enable_exposure_variability": false
     },
     "image_settings": {
         "file_format": "PNG",
@@ -31,11 +36,21 @@
     },
     "background_settings": {
         "default_emission": 1.0,
-        "emission_step": 0.25,
-        "max_emission": 2.0,
+        "emission_step": 0.5,
+        "max_emission": 1.0,
         "emission_color": [1.0, 1.0, 1.0, 1.0],
-        "enable_emission_variable_rendering": false,
-        "use_hdri": true,
-        "hdri": "hdris\\city.exr"
+        "enable_emission_variability": false,
+        "enable_hdri": true,
+        "hdri_dir": "hdris",
+        "hdris": [
+            "city.exr",
+            "courtyard.exr",
+            "forest.exr",
+            "interior.exr",
+            "night.exr",
+            "studio.exr",
+            "sunrise.exr",
+            "sunset.exr"
+        ]
     }
 }

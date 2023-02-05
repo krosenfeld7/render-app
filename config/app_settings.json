@@ -10,10 +10,11 @@
     "parameters": {
         "enable_blacklist": false,
         "enable_whitelist": true,
-        "enable_logging": true,
+        "enable_logging": false,
         "enable_stat_tracking": true,
         "enable_time_tracking": true,
-        "overwrite_all": true
+        "overwrite_all": false,
+        "enable_collection_specific_materials": true
     },
     "paths": {
         "blender_collection_path": "\\Collection\\",
@@ -28,13 +29,18 @@
     "blacklist": [
     ],
     "whitelist": [
-        "petals009",
-        "vectoreqsharp",
-        "all_materials"
+        "petals010",
+        "all_centers",
+        "shinysilver",
+        "shinygold"
     ],
     "orthographic_components": [
         "honeycomb",
         "hexagonalcubefractal"
-    ]
+    ],
+    "material_to_collection": {
+        "Petals": "shinygold",
+        "Centers": "shinysilver"
+    }
 }
 

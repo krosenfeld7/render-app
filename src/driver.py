@@ -20,6 +20,9 @@ class Driver:
     def process(files: dict) -> None:
         overseer = OverseerUtility(files, MaterialUtility.get_materials(files))
 
+        if overseer.total_iterations_to_execute == 0:
+            logger().info("No valid renders found")
+
         for index in range(overseer.total_iterations_to_execute):
             RenderUtility.render_file(overseer.update())
 

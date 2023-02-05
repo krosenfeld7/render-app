@@ -13,36 +13,32 @@ class Logger:
                  info_path: str) -> None:
         self._logger = logging.getLogger(name)
         self._file_handler = None
-        self._stream_handler = None
+        self._stream_handler = logging.StreamHandler()
+        self._stream_handler.setLevel(logging.INFO)
+        self._logger.addHandler(self._stream_handler)
         if app_settings().parameters().logging_enabled():
             self._file_handler = logging.FileHandler(info_path, mode="w")
-            self._stream_handler = logging.StreamHandler()
             self._file_handler.setLevel(logging.INFO)
-            self._stream_handler.setLevel(logging.INFO)
             self._logger.addHandler(self._file_handler)
-            self._logger.addHandler(self._stream_handler)
 
 
     def info(self,
              msg,
              *args,
              **kwargs) -> None:
-        if app_settings().parameters().logging_enabled():
-            self._logger.warning(msg, *args, **kwargs)
+        self._logger.warning(msg, *args, **kwargs)
 
     def error(self,
               msg,
               *args,
               **kwargs) -> None:
-        if app_settings().parameters().logging_enabled():
-            self._logger.error(msg, *args, **kwargs)
+        self._logger.error(msg, *args, **kwargs)
 
     def exception(self,
                   msg,
                   *args,
                   **kwargs) -> None:
-        if app_settings().parameters().logging_enabled():
-            self._logger.exception(msg, *args, **kwargs, exc_info=True)
+        self._logger.exception(msg, *args, **kwargs, exc_info=True)
 
 
 _logger_instances = dict()

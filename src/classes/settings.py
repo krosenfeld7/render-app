@@ -11,7 +11,8 @@ class AppSettings:
                  material_collection: str = '',
                  blacklist: Optional[list] = None,
                  whitelist: Optional[list] = None,
-                 orthographic_components: Optional[list] = None) -> None:
+                 orthographic_components: Optional[list] = None,
+                 material_to_collection: Optional[dict] = None) -> None:
         self._constants = constants
         self._collections = collections
         self._material_collection = material_collection
@@ -20,6 +21,7 @@ class AppSettings:
         self._blacklist = blacklist
         self._whitelist = whitelist
         self._orthographic_components = orthographic_components
+        self._material_to_collection = material_to_collection
 
     def collections(self) -> dict:
         return self._collections
@@ -43,19 +45,22 @@ class AppSettings:
         return self._whitelist
 
     def check_for_orthographic_components(self, components: list) -> bool:
+        if self._orthographic_components is None:
+            return False
+
         return any(component in components
-                   for component in self.orthographic_components())
+                   for component in self._orthographic_components)
 
     def orthographic_components(self) -> Optional[list]:
         return self._orthographic_components
 
     def validate_against_blacklist(self,
                                    entry: str) -> bool:
-        return entry not in self._blacklist
+        return self._blacklist is not None and entry not in self._blacklist
 
     def validate_against_whitelist(self,
                                    entry: str) -> bool:
-        return entry in self._whitelist
+        return self._whitelist is not None and entry in self._whitelist
 
     def validate_entry(self,
                        entry: str,
@@ -69,6 +74,13 @@ class AppSettings:
             return self.validate_against_whitelist(entry)
 
         return True
+
+    def material_to_collection(self) -> Optional[dict]:
+        return self._material_to_collection
+
+    def get_material_for_collection(self,
+                                    collection: str) -> str:
+        return self._material_to_collection[collection]
 
     class Paths:
         def __init__(self,
@@ -126,13 +138,16 @@ class AppSettings:
                      enable_logging=False,
                      enable_stat_tracking=False,
                      enable_time_tracking=False,
-                     overwrite_all=False) -> None:
+                     overwrite_all=False,
+                     enable_collection_specific_materials=False) -> None:
             self._enable_blacklist = enable_blacklist
             self._enable_whitelist = enable_whitelist
             self._enable_logging = enable_logging
             self._enable_stat_tracking = enable_stat_tracking
             self._enable_time_tracking = enable_time_tracking
             self._overwrite_all = overwrite_all
+            self._enable_material_to_collection = \
+                enable_collection_specific_materials
 
         def blacklist_enabled(self) -> bool:
             return self._enable_blacklist
@@ -151,6 +166,9 @@ class AppSettings:
 
         def time_tracking_enabled(self) -> bool:
             return self._enable_time_tracking
+
+        def material_to_collection_enabled(self) -> bool:
+            return self._enable_material_to_collection
 
 
 class BlenderSettings:
@@ -229,10 +247,19 @@ class BlenderSettings:
         def __init__(self,
                      look: str,
                      view_transform: str,
-                     exposure: float) -> None:
+                     default_exposure: float,
+                     exposure_step: float,
+                     start_exposure: float,
+                     end_exposure: float,
+                     enable_exposure_variability: bool) -> None:
             self._look = look
             self._view_transform = view_transform
-            self._exposure = exposure
+            self._default_exposure = default_exposure
+            self._exposure_step = exposure_step
+            self._start_exposure = start_exposure
+            self._end_exposure = end_exposure
+            self._enable_exposure_variable_rendering = \
+                enable_exposure_variability
 
         def look(self) -> str:
             return self._look
@@ -240,8 +267,20 @@ class BlenderSettings:
         def view_transform(self) -> str:
             return self._view_transform
 
-        def exposure(self) -> float:
-            return self._exposure
+        def default_exposure(self) -> float:
+            return self._default_exposure
+
+        def exposure_step(self) -> float:
+            return self._exposure_step
+
+        def start_exposure(self) -> float:
+            return self._start_exposure
+
+        def end_exposure(self) -> float:
+            return self._end_exposure
+
+        def exposure_variability_enabled(self) -> float:
+            return self._enable_exposure_variable_rendering
 
     class SceneSettings:
         def __init__(self,
@@ -308,28 +347,30 @@ class BlenderSettings:
     class BackgroundSettings:
         def __init__(self,
                      emission_color: list,
-                     default_emission: Optional[float] = None,
-                     emission_step: Optional[float] = None,
-                     max_emission: Optional[float] = None,
-                     enable_emission_variable_rendering=False,
-                     use_hdri=False,
-                     hdri='') -> None:
+                     default_emission: float = 0.0,
+                     emission_step: float = 0.0,
+                     max_emission: float = 0.0,
+                     enable_emission_variability=False,
+                     enable_hdri=False,
+                     hdri_dir='',
+                     hdris: list = None) -> None:
             self._default_emission = default_emission
             self._emission_step = emission_step
             self._max_emission = max_emission
             self._emission_color = emission_color
             self._enable_emission_variable_rendering = \
-                enable_emission_variable_rendering
-            self._use_hdri = use_hdri
-            self._hdri = hdri
+                enable_emission_variability
+            self._use_hdri = enable_hdri
+            self._hdri_dir = hdri_dir
+            self._hdris = hdris
 
-        def default_emission(self) -> Optional[float]:
+        def default_emission(self) -> float:
             return self._default_emission
 
-        def emission_step(self) -> Optional[float]:
+        def emission_step(self) -> float:
             return self._emission_step
 
-        def max_emission(self) -> Optional[float]:
+        def max_emission(self) -> float:
             return self._max_emission
 
         def emission_color(self) -> list:
@@ -341,11 +382,16 @@ class BlenderSettings:
         def hdri_enabled(self) -> bool:
             return self._use_hdri
 
-        def hdri(self) -> str:
-            return self._hdri
+        def hdri_dir(self) -> str:
+            return self._hdri_dir
 
-        def hdri_path(self) -> str:
-            return path.join(getcwd(), self._hdri)
+        def hdris(self) -> list:
+            hdri_paths = list()
+            for hdri in self._hdris:
+                hdri_path = path.join(getcwd(), self._hdri_dir)
+                hdri_paths.append(path.join(hdri_path, hdri))
+
+            return hdri_paths
 
 
 class TypeSettings:
