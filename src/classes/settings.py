@@ -12,7 +12,7 @@ class AppSettings:
                  blacklist: Optional[list] = None,
                  whitelist: Optional[list] = None,
                  orthographic_components: Optional[list] = None,
-                 material_to_collection: Optional[dict] = None) -> None:
+                 material_combinations: Optional[list] = None) -> None:
         self._constants = constants
         self._collections = collections
         self._material_collection = material_collection
@@ -21,7 +21,7 @@ class AppSettings:
         self._blacklist = blacklist
         self._whitelist = whitelist
         self._orthographic_components = orthographic_components
-        self._material_to_collection = material_to_collection
+        self._material_combinations = material_combinations
 
     def collections(self) -> dict:
         return self._collections
@@ -75,12 +75,8 @@ class AppSettings:
 
         return True
 
-    def material_to_collection(self) -> Optional[dict]:
-        return self._material_to_collection
-
-    def get_material_for_collection(self,
-                                    collection: str) -> str:
-        return self._material_to_collection[collection]
+    def material_combinations(self) -> Optional[list]:
+        return self._material_combinations
 
     class Paths:
         def __init__(self,
@@ -139,15 +135,17 @@ class AppSettings:
                      enable_stat_tracking=False,
                      enable_time_tracking=False,
                      overwrite_all=False,
-                     enable_collection_specific_materials=False) -> None:
+                     enable_material_combinations=False,
+                     combinatorial_type='product') -> None:
             self._enable_blacklist = enable_blacklist
             self._enable_whitelist = enable_whitelist
             self._enable_logging = enable_logging
             self._enable_stat_tracking = enable_stat_tracking
             self._enable_time_tracking = enable_time_tracking
             self._overwrite_all = overwrite_all
-            self._enable_material_to_collection = \
-                enable_collection_specific_materials
+            self._enable_material_combinations = \
+                enable_material_combinations
+            self._combinatorial_type = combinatorial_type
 
         def blacklist_enabled(self) -> bool:
             return self._enable_blacklist
@@ -167,8 +165,11 @@ class AppSettings:
         def time_tracking_enabled(self) -> bool:
             return self._enable_time_tracking
 
-        def material_to_collection_enabled(self) -> bool:
-            return self._enable_material_to_collection
+        def enable_material_combinations(self) -> bool:
+            return self._enable_material_combinations
+
+        def combinatorial_type(self) -> str:
+            return self._combinatorial_type
 
 
 class BlenderSettings:
@@ -299,10 +300,12 @@ class BlenderSettings:
         def __init__(self,
                      file_format: str,
                      color_mode: str,
-                     color_depth: str):
+                     color_depth: str,
+                     compression: int):
             self._file_format = file_format
             self._color_mode = color_mode
             self._color_depth = color_depth
+            self._compression = compression
 
         def file_format(self) -> str:
             return self._file_format
@@ -313,14 +316,19 @@ class BlenderSettings:
         def color_depth(self) -> str:
             return self._color_depth
 
+        def compression(self) -> int:
+            return self._compression
+
     class EeveeEngineSettings:
         def __init__(self,
                      samples: int,
                      bloom=False,
-                     ambient_occlusion=False) -> None:
+                     ambient_occlusion=False,
+                     bloom_intensity=0.05) -> None:
             self._taa_render_samples = samples
             self._use_bloom = bloom
             self._use_gtao = ambient_occlusion
+            self._bloom_intensity = bloom_intensity
 
         def samples(self) -> int:
             return self._taa_render_samples
@@ -330,6 +338,9 @@ class BlenderSettings:
 
         def ambient_occlusion_enabled(self) -> bool:
             return self._use_gtao
+
+        def bloom_intensity(self) -> float:
+            return self._bloom_intensity
 
     class CyclesEngineSettings:
         def __init__(self,

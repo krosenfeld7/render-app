@@ -14,7 +14,8 @@
         "enable_stat_tracking": true,
         "enable_time_tracking": true,
         "overwrite_all": false,
-        "enable_collection_specific_materials": true
+        "enable_material_combinations": false,
+        "combinatorial_type": "specified"
     },
     "paths": {
         "blender_collection_path": "\\Collection\\",
@@ -29,18 +30,16 @@
     "blacklist": [
     ],
     "whitelist": [
-        "petals010",
-        "all_centers",
-        "shinysilver",
+        "petals011",
+        "flaringseedoflife",
         "shinygold"
     ],
     "orthographic_components": [
         "honeycomb",
         "hexagonalcubefractal"
     ],
-    "material_to_collection": {
-        "Petals": "shinygold",
-        "Centers": "shinysilver"
-    }
+    "material_combinations": [
+        ["shinygold", "shinysilver"]
+    ]
 }
 

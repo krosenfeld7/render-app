@@ -41,7 +41,7 @@ class VariableExposureOverseer(ViewOverseer):
                  repeat: int) -> None:
         super(VariableExposureOverseer, self).__init__(repeat)
         self._current_exposure = \
-            -blender_settings().view_settings().start_exposure() - \
+            blender_settings().view_settings().start_exposure() - \
             blender_settings().view_settings().exposure_step()
 
     def update(self) -> None:

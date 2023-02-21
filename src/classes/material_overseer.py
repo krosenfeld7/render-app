@@ -1,3 +1,4 @@
+from itertools import combinations, permutations, product
 
 from src.classes.exceptions import InvalidConfigurationException, InvalidMaterialException
 from src.classes.overseer import Overseer
@@ -62,6 +63,19 @@ class DefaultMaterialOverseer(MaterialOverseer):
 
 class VariableMaterialOverseer(MaterialOverseer):
 
+    @staticmethod
+    def specified_combos(combos: list,
+                         combo_length: int) -> list:
+        # length is assumed to be correct
+        return combos
+
+    func_map = {
+        'product': product,
+        'combinations': combinations,
+        'permutations': permutations,
+        'specified': specified_combos
+    }
+
     def __init__(self,
                  repeat: int,
                  materials: list) -> None:
@@ -70,7 +84,11 @@ class VariableMaterialOverseer(MaterialOverseer):
         for index in range(len(self._materials)):
             self._materials_by_names[self._names[index]] = self._materials[index]
 
-        self._material_name_by_collection = app_settings().material_to_collection()
+        self._immaterial_collections = MaterialUtility.get_immaterial_collections()
+        function = self.func_map[app_settings().parameters().combinatorial_type()]
+        self._material_combinations = list(function(app_settings().material_combinations(),
+                                                    len(self._immaterial_collections)))
+        self._material_combo_index = 0
 
     def update(self) -> None:
         if self._current_count < self._repeat:
@@ -78,24 +96,38 @@ class VariableMaterialOverseer(MaterialOverseer):
             return
 
         self._current_count = 0
-        for collection in self._material_name_by_collection:
+
+        material_combo = self._material_combinations[self._material_combo_index]
+        for index in range(len(self._immaterial_collections)):
+            collection = self._immaterial_collections[index]
+            material_name = material_combo[index]
+
             meshes = MeshUtility.all_meshes_in_collection(collection)
-            material_name = self._material_name_by_collection[collection]
             if material_name not in self._materials_by_names:
                 raise InvalidConfigurationException("Material: " + material_name + " not specified")
 
             MaterialUtility.update_meshes_with_material(meshes,
                                                         self._materials_by_names[material_name])
 
+        self._material_combo_index += 1
+        self._material_combo_index %= len(self._material_combinations)
+
     def iteration_count(self) -> int:
-        return 1
+        return len(self._material_combinations)
 
     def __str__(self):
-        return '_'.join(list(self._material_name_by_collection.values()))
+        current_index = self._material_combo_index - 1
+        current_index %= len(self._material_combinations)
+        accounted = set()
+        duplicates_removed = [component
+                              for component in self._material_combinations[current_index]
+                              if not (component in accounted or accounted.add(component))]
+        return '_'.join(duplicates_removed)
 
 
 def material_dispatcher(*args, **kwargs) -> MaterialOverseer:
-    if app_settings().parameters().material_to_collection_enabled():
+    if app_settings().parameters().enable_material_combinations() \
+            and app_settings().material_combinations() is not None:
         return VariableMaterialOverseer(*args, **kwargs)
 
     return DefaultMaterialOverseer(*args, **kwargs)

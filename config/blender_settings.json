@@ -1,16 +1,17 @@
 {
     "render_settings": {
         "render_engine": "BLENDER_EEVEE",
-        "resolution_x": 2560,
-        "resolution_y": 2560,
+        "resolution_x": 2400,
+        "resolution_y": 2400,
         "resolution_percentage": 100,
         "use_border": false,
         "film_transparent": true
     },
     "eevee_settings": {
-        "samples": 64,
+        "samples": 256,
         "bloom": true,
-        "ambient_occlusion": true
+        "ambient_occlusion": true,
+        "bloom_intensity": 0.075
     },
     "cycles_settings": {
         "samples": 32,
@@ -25,17 +26,18 @@
         "view_transform": "Filmic",
         "default_exposure": 0.0,
         "exposure_step": 0.5,
-        "start_exposure": 0.0,
-        "end_exposure": 0.0,
+        "start_exposure": -2.0,
+        "end_exposure": 2.0,
         "enable_exposure_variability": false
     },
     "image_settings": {
         "file_format": "PNG",
         "color_mode": "RGBA",
-        "color_depth": "16"
+        "color_depth": "8",
+        "compression": 0
     },
     "background_settings": {
-        "default_emission": 1.0,
+        "default_emission": 0.5,
         "emission_step": 0.5,
         "max_emission": 1.0,
         "emission_color": [1.0, 1.0, 1.0, 1.0],
@@ -43,14 +45,7 @@
         "enable_hdri": true,
         "hdri_dir": "hdris",
         "hdris": [
-            "city.exr",
-            "courtyard.exr",
-            "forest.exr",
-            "interior.exr",
-            "night.exr",
-            "studio.exr",
-            "sunrise.exr",
-            "sunset.exr"
+            "courtyard.exr"
         ]
     }
 }

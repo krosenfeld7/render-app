@@ -24,11 +24,11 @@ class Driver:
             logger().info("No valid renders found")
 
         for index in range(overseer.total_iterations_to_execute):
-            RenderUtility.render_file(overseer.update())
+            overseer.update()
 
     @staticmethod
     def driver() -> None:
-        logger().info(" >>>>>>>>>>>>> Driver Running  <<<<<<<<<<<<<")
+        logger().info(" >>>>>>>>>>>>> Driver Running <<<<<<<<<<<<<")
         time_tracker().start("execution")
 
         ClearUtility.clear_all()

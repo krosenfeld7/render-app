@@ -1,8 +1,9 @@
 from os import path
+from datetime import datetime
 
 from src.classes.camera import camera
 from src.classes.overseer_dispatcher import overseer_dispatcher
-from src.parsers.settings_parser import app_settings
+from src.parsers.settings_parser import app_settings, blender_settings
 from src.trackers.logger import logger
 from src.utilities.material_utility import MaterialUtility
 from src.utilities.render_utility import RenderUtility
@@ -46,15 +47,18 @@ class OverseerUtility:
                                  collection=collection,
                                  files=self._files[collection])
 
-    def update(self) -> list:
+    def update(self) -> None:
         [overseer.update() for overseer in self._overseers]
 
         components = [str(overseer) for overseer in self._overseers]
+        components.append(blender_settings().image_settings().color_mode().lower())
+        components.append(blender_settings().image_settings().color_depth())
         camera().set_camera_to_perspective(not app_settings().
                                            check_for_orthographic_components(components))
         camera().align_camera_to_active_objects()
         self._count += 1
         logger().info("Render " + str(self._count)
                       + " out of " + str(self.total_iterations_to_execute)
-                      + ": " + path.split(RenderUtility.file_name_for_components(components))[-1])
-        return components
+                      + ": " + path.split(RenderUtility.file_name_for_components(components))[-1]
+                      + " @ " + str(datetime.now().strftime("%H:%M:%S")))
+        RenderUtility.render_file(components)

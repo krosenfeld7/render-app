@@ -45,6 +45,7 @@ class SettingsUtility:
         scene.render.image_settings.file_format = image_settings.file_format()
         scene.render.image_settings.color_mode = image_settings.color_mode()
         scene.render.image_settings.color_depth = image_settings.color_depth()
+        scene.render.image_settings.compression = image_settings.compression()
 
     @staticmethod
     def update_eevee_settings(scene: Any) -> None:
@@ -52,6 +53,7 @@ class SettingsUtility:
         scene.eevee.taa_render_samples = eevee_settings.samples()
         scene.eevee.use_bloom = eevee_settings.bloom_enabled()
         scene.eevee.use_gtao = eevee_settings.ambient_occlusion_enabled()
+        scene.eevee.bloom_intensity = eevee_settings.bloom_intensity()
 
     @staticmethod
     def update_cycles_settings(scene: Any) -> None:

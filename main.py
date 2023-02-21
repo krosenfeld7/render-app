@@ -2,7 +2,6 @@ from os import path, getcwd
 
 from src.entry import execute
 
-
 if __name__ == "__main__":
     # for now just call entry.py
     parameters = {'app_settings': "app_settings.json",
