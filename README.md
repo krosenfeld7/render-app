@@ -98,7 +98,12 @@ The "blacklist" field is used to specify which components you want to skip in th
 The "whitelist" field is used to specify which components you want to use in the processing. These need to include the name blender files minus any non-alphanumerics:
 - e.g. "rose_gold" -> "rosegold"
 
-It is recommended to avoid using both the blacklist and whitelist at the same time as this will lead to not valid renders frequently.
+There also is an option to wildcard select all of a specific collection, this is done as follows:
+- e.g. "all_<COLLECTION>" -> "all_materials", etc.
+
+Note: It is recommended to avoid using both the blacklist and whitelist at the same time as this will lead to not valid renders frequently.
+
+Note 2: The blacklist has a higher priority than the whitelist.
 
 The "orthographic_components" field is used to specify which models should use the orthographic camera view instead of perspective. The default camera view is perspective. Specify the blender file name with only alphanumerics.
 
@@ -232,26 +237,22 @@ types.json:
         "render",
         "camera_align",
         "execution"
-    ],
-    "collection_regex": "(?i)<REPLACE_IN_CODE>(s?)(.?)(\\s)?([0-9]+)?"
+    ]
 }
 
 The "stat_types" field specifies the different actions that the app should track if "enable_stat_tracking" is enabled. At the end of execution, the app will output how many times each action happended.
 
 The "time_types" field specifies the different actions that the app should track if "enable_time_tracking" is enabled. At the end of execution, the app will output how long the app spent in each area of the code performing each action. This is useful for debugging and finding where the app is spending most of its time.
 
-The "collection_regex" field allows you specify what the app should search for in addition to the "collections" types inside of app_settings.json. It is recommended this is left as default.
-
 
 Once everything is set appropriately in the settings files, the directory structure needs to be specified as follows:
 
 - All collection directories need to be at the path of "search_dir"
-- The output directory needs to be at the path of "output_dir"
+- The output directory should be at the path of "output_dir". If it is not, it will be created
 
 The models inside of each of the blender files need to have their collection to be found named the same as the collection specified. For example:
 
 - In a material collection that is specified in app_settings.json as "Materials", each blender file needs to have a collection named "Materials"
-- The directory can be "material", "materials", "Material", etc, but blender will crash if the collection is not present that it is searching for.
 
 If you wish to change the name of the settings files, then you will need to update them in main.py.
 

@@ -1,3 +1,7 @@
+""" This module contains the exceptions used throughout the app.
+"""
+
+
 class CameraNotFoundException(Exception):
     pass
 

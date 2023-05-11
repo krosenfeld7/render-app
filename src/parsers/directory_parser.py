@@ -1,10 +1,14 @@
-from collections import defaultdict
+""" This module handles directory parsing.
+"""
+
 from os import path, listdir
 
 from src.parsers.settings_parser import app_settings
 
 
 class DirectoryParser:
+    """ This class performs the parsing of the search directory
+        and finds the necessary files. """
 
     def __init__(self,
                  root_dir: str,
@@ -15,6 +19,11 @@ class DirectoryParser:
         self._file_extension = file_extension
 
     def parse(self) -> dict:
+        """ Performs the parsing of the directories provided,
+            taking into account the path and extension. """
+
+        # Simple walking of directories, returning each of the files
+        # Stores the valid files according to their collection type (directory name)
         files_by_directories = dict()
         for directory in self._directories:
             dir_path = path.join(self._root_dir, directory)
@@ -31,7 +40,11 @@ class DirectoryParser:
 
 
 def parse_directories() -> dict:
+    """ Simple accessor for this class. Returns the valid files by
+        collection type. """
+
     root_dir = app_settings().paths().search_dir_path()
     directories = list(app_settings().collections().values())
     file_extension = app_settings().paths().blender_file_extension()
+    # pass settings to the parser and return parsed result
     return DirectoryParser(root_dir, directories, file_extension).parse()

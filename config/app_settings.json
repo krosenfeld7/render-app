@@ -30,13 +30,8 @@
     "blacklist": [
     ],
     "whitelist": [
-        "petals014",
-        "fullypetaled",
-        "fractalizedflower",
-        "squarefractal",
-        "vinefractal",
-        "shinygold",
-        "shinysilver",
+        "petals005",
+        "honeycomb",
         "rosegold"
     ],
     "orthographic_components": [
