@@ -18,7 +18,8 @@ class RenderUtility:
         """ Returns a file name for the provided components. """
 
         file_name = '_'.join(file_components)
-        file_name += '.' + blender_settings().image_settings().file_format().lower()
+        file_name += '.' \
+                     + blender_settings().image_settings().file_format().lower()
         file_path = path.join(app_settings().paths().output_dir_path(), file_name)
 
         # create the output directory if it does not exist

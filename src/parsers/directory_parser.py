@@ -23,7 +23,8 @@ class DirectoryParser:
             taking into account the path and extension. """
 
         # Simple walking of directories, returning each of the files
-        # Stores the valid files according to their collection type (directory name)
+        # Stores the valid files according to their
+        # collection type (directory name)
         files_by_directories = dict()
         for directory in self._directories:
             dir_path = path.join(self._root_dir, directory)
@@ -47,4 +48,8 @@ def parse_directories() -> dict:
     directories = list(app_settings().collections().values())
     file_extension = app_settings().paths().blender_file_extension()
     # pass settings to the parser and return parsed result
-    return DirectoryParser(root_dir, directories, file_extension).parse()
+    return DirectoryParser(
+        root_dir,
+        directories,
+        file_extension
+    ).parse()

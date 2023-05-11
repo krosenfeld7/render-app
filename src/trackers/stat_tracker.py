@@ -43,7 +43,7 @@ class StatTracker:
             return self._msg
 
         def count(self) -> int:
-            """ Returns the number of occurences of this stat report. """
+            """ Returns the number of occurrences of this stat report. """
 
             return self._count
 
@@ -79,7 +79,8 @@ class StatTracker:
             return
 
         if stat_type not in self._stat_types:
-            raise StatTypeNotFoundException("Invalid stat type: " + str(stat_type))
+            raise StatTypeNotFoundException("Invalid stat type: "
+                                            + str(stat_type))
 
         stat_key = (stat_type, collection)
         if stat_key not in self._stats_report:

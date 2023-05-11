@@ -18,7 +18,8 @@ class AppendUtility:
                          collection: str) -> None:
         time_tracker().start("append", collection)
 
-        collection_path = file_path + app_settings().paths().blender_collection()
+        collection_path = file_path + \
+            app_settings().paths().blender_collection()
         # append the collection to this file
         ops.wm.append(filename=collection,
                       directory=collection_path,
@@ -29,5 +30,7 @@ class AppendUtility:
 
         if collection not in data.collections.keys():
             # verify that the collection append was successful
-            raise CollectionNotFoundException("Invalid Collection: '" + collection
-                                              + "' not found in: '" + file_path)
+            raise CollectionNotFoundException("Invalid Collection: '"
+                                              + collection
+                                              + "' not found in: '"
+                                              + file_path)

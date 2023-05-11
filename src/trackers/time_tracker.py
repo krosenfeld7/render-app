@@ -70,7 +70,8 @@ class TimeTracker:
             return
 
         if time_type not in self._time_types:
-            raise TimeTypeNotFoundException("Invalid time type: " + time_type)
+            raise TimeTypeNotFoundException("Invalid time type: "
+                                            + time_type)
 
         # Add the time object to the active times for tracking purposes.
         # This retains references to the active objects and will be removed
@@ -87,7 +88,8 @@ class TimeTracker:
             return
 
         if time_type not in self._time_types:
-            raise TimeTypeNotFoundException("Invalid time type: " + time_type)
+            raise TimeTypeNotFoundException("Invalid time type: "
+                                            + time_type)
 
         # Report the invalid call to end().
         if (time_type, collection) not in self._active_times:
@@ -96,7 +98,8 @@ class TimeTracker:
                            + " - report not found in time tracker")
             return
 
-        # Remove the report from the active list and report with the elapsed time
+        # Remove the report from the active list and report
+        # with the elapsed time
         report = self._active_times.pop((time_type, collection))
         report.set_elapsed(time() - report.get_elapsed())
         self._time_report.append(report)
@@ -109,7 +112,8 @@ class TimeTracker:
         if time_type not in self._time_types:
             raise TimeTypeNotFoundException("Invalid time type: " + time_type)
 
-        return [report for report in self._time_report if report.get_time_type() == time_type]
+        return [report for report in self._time_report
+                if report.get_time_type() == time_type]
 
     def report_times(self) -> None:
         """ Reports all of the tracked times. """
@@ -119,7 +123,8 @@ class TimeTracker:
 
         # sum all execution report elapsed times
         total_exec_time = sum(
-            [report.get_elapsed() for report in self._time_report if report.get_time_type() == 'execution'])
+            [report.get_elapsed() for report in self._time_report
+             if report.get_time_type() == 'execution'])
 
         logger().info("------------- Execution Times -------------")
         logger().info("Type, % of Total, Total Time")
@@ -127,8 +132,9 @@ class TimeTracker:
             # sums the elapsed times of all reports with this type
             total_time_by_type = sum([report.get_elapsed()
                                      for report in self._aggregate_by_type(time_type)])
+            pct_total_time = total_time_by_type/total_exec_time * 100
             logger().info(time_type
-                          + str(", {0:.2f}%".format(total_time_by_type/total_exec_time * 100))
+                          + str(", {0:.2f}%".format(pct_total_time))
                           + ", " + str(total_time_by_type))
 
 

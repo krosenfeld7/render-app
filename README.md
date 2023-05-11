@@ -117,7 +117,6 @@ The `orthographic_components` field is used to specify which models should use t
 
 The `materials_combinations` field is used to specify the materials used in the material combinations computation specified by the `parameters` -> `combinatorial_type` if `enable_material_combinations` is enabled
 
-
 `blender_settings.json:`
 ```yaml
 {
@@ -230,7 +229,7 @@ The `background_settings` field specifies parameters to the background settings 
     "stat_types": [
         "clear_all",
         "camera_align",
-        "camera_persp",
+        "camera_perspective",
         "append_for_collection",
         "render",
         "skipped",
@@ -262,7 +261,7 @@ Once everything is set appropriately in the settings files, the directory struct
 - All collection directories need to be at the path of `search_dir`
 - The output directory should be at the path of `output_dir`. If it is not, it will be created
 
-The models inside of each of the blender files need to have their collection to be found named the same as the collection specified. For example:
+The models inside each of the blender files need to have their collection to be found named the same as the collection specified. For example:
 
 - In a material collection that is specified in `app_settings.json` as "Materials", each blender file needs to have a collection named "Materials"
 

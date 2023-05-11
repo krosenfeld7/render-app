@@ -51,7 +51,8 @@ class OverseerUtility:
         self.create_overseer('MaterialOverseer',
                              materials=self._materials)
 
-        immaterial_collections = MaterialUtility.get_immaterial_collections()
+        immaterial_collections = \
+            MaterialUtility.get_immaterial_collections()
         # create an overseer for each of the main collections
         for index in reversed(range(len(immaterial_collections))):
             collection = immaterial_collections[index]
@@ -62,21 +63,28 @@ class OverseerUtility:
     def update(self) -> None:
         """ Updates each of the overseers and executes the rendering. """
 
-        # call into each sub overseer and execute their update on each iteration
+        # call into each sub overseer and execute their update
+        # on each iteration
         [overseer.update() for overseer in self._overseers]
 
         # grab the components from the overseers and the settings for the file name
         components = [str(overseer) for overseer in self._overseers]
-        components.append(blender_settings().image_settings().color_mode().lower())
-        components.append(blender_settings().image_settings().color_depth())
+        components.append(
+            blender_settings().image_settings().color_mode().lower()
+        )
+        components.append(
+            blender_settings().image_settings().color_depth()
+        )
         # update the camera's perspective and align
-        camera().set_camera_to_perspective(not app_settings().
-                                           check_for_orthographic_components(components))
+        camera().set_camera_to_perspective(
+            not app_settings().check_for_orthographic_components(components)
+        )
         camera().align_camera_to_active_objects()
         self._count += 1
+        filename = path.split(RenderUtility.file_name_for_components(components))[-1]
         logger().info("Render " + str(self._count)
                       + " out of " + str(self.total_iterations_to_execute)
-                      + ": " + path.split(RenderUtility.file_name_for_components(components))[-1]
+                      + ": " + filename
                       + " @ " + str(datetime.now().strftime("%H:%M:%S")))
         # use the render utility to render the scene
         RenderUtility.render_file(components)

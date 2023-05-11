@@ -48,10 +48,15 @@ class MaterialUtility:
 
         # retrieve all materials from all files in the materials collection
         for file in files[app_settings().material_collection()]:
-            AppendUtility.append_from_file(file, app_settings().material_collection())
+            AppendUtility.append_from_file(
+                file,
+                app_settings().material_collection()
+            )
 
         # find all of the specific materials across all objects
-        return MaterialUtility.aggregate_materials(app_settings().material_collection())
+        return MaterialUtility.aggregate_materials(
+            app_settings().material_collection()
+        )
 
     @staticmethod
     def get_immaterial_collections() -> list:
@@ -60,7 +65,10 @@ class MaterialUtility:
         collections = sorted(app_settings().collections().keys())
         non_material_collections_by_priority = list()
         for collection in collections:
-            if app_settings().collections()[collection] not in app_settings().material_collection():
-                non_material_collections_by_priority.append(app_settings().collections()[collection])
+            if app_settings().collections()[collection] \
+                    not in app_settings().material_collection():
+                non_material_collections_by_priority.append(
+                    app_settings().collections()[collection]
+                )
 
         return non_material_collections_by_priority

@@ -2,7 +2,8 @@
     for returning the correct overseer type.
 """
 
-from src.classes.collection_overseer import CollectionOverseer, collection_dispatcher
+from src.classes.collection_overseer import CollectionOverseer, \
+    collection_dispatcher
 from src.classes.material_overseer import MaterialOverseer, material_dispatcher
 from src.classes.overseer import Overseer
 from src.classes.view_overseer import ViewOverseer, view_dispatcher
@@ -31,6 +32,7 @@ def world(*args, **kwargs) -> WorldOverseer:
     """ The generic WorldOverseer dispatcher. """
 
     return world_dispatcher(*args, **kwargs)
+
 
 # maps the overseer names to the dispatch functions above.
 dispatch_map = {
