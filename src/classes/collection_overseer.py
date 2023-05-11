@@ -23,12 +23,13 @@ class CollectionOverseer(Overseer):
         self._file_index = 0
 
     def update(self) -> None:
-        """ Updates this overseer and moves it forward to the next state. This overseer handles
-            collection operations. """
+        """ Updates this overseer and moves it forward to the next state.
+            This overseer handles collection operations. """
 
         # ensure that we are using a valid file
         if self._file_index >= len(self._files):
-            raise InvalidFileException("Hit a file index that is out of the valid range: "
+            raise InvalidFileException("Hit a file index that "
+                                       "is out of the valid range: "
                                        + str(self._file_index) + ", max: "
                                        + str(len(self._files))
                                        + ", for collection: " + self._collection)
@@ -42,7 +43,8 @@ class CollectionOverseer(Overseer):
         # begin by clearing the old objects for the collection
         ClearUtility.clear_collection(self._collection)
         # use the append utility to retrieve the new collection's objects
-        AppendUtility.append_from_file(self._files[self._file_index], self._collection)
+        AppendUtility.append_from_file(self._files[self._file_index],
+                                       self._collection)
         self._file_index += 1
         self._file_index %= len(self._files)
 

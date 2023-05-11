@@ -56,8 +56,9 @@ class ClearUtility:
                     if obj.name in data.objects and obj.type != 'CAMERA':
                         objs_to_remove.append(obj)
 
-            # removal of objects needs to be performed separately from the iteration
-            # above to prevent an internal Blender crash
+            # removal of objects needs to be performed
+            # separately from the iteration above to
+            # prevent an internal Blender crash
             for obj in objs_to_remove:
                 data.objects.remove(obj, do_unlink=True)
 

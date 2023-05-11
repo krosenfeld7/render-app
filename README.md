@@ -1,4 +1,4 @@
-This app performs blender model aggregation and rendering. This is performed by executing blender in a subprocess and executing all of the necessary actions to result in a viable render.
+This app performs blender model aggregation and rendering. This is performed by executing blender in a subprocess and executing all the necessary actions to result in a viable render.
 
 Right now all settings are specified via the json files in the config directory. Maybe at some point in the future I will add a GUI, but this will only happen if other people want to use this.
 
@@ -59,15 +59,15 @@ app_settings.json:
     ]
 }
 
-The "collections" field is used to specify the collections to be searched and appended to the template blender model. Each collection is to be provided a priority (0 is highest priority), which indicates which model will be appended first and be swapped out the least. Each collections value is also the directory name that is searched and the actual collection name within the models that are searched within that directory.
+The "collections" field is used to specify the collections to be searched and appended to the template blender model. Each collection is to be provided a priority (0 is the highest priority), which indicates which model will be appended first and be swapped out the least. Each collections' value is also the directory name that is searched and the actual collection name within the models that are searched within that directory.
 
 This field is intended to be generic such that you can add as many collection types to it as you want. However, this finds all combinations between the collections so the number of renders will increase rapidly with the number of collections.
 
 The "constants" field is used to specify in app constants as needed. Note: none are used currently
 
-The "material_collection" field is used to specify which collection from the collections field is the materials collection. This allows the app to distinguish and apply all materials from the collection to the models before rendering. Thus providing a way to combinatorically render many options.
+The "material_collection" field is used to specify which collection from the collections field is the materials' collection. This allows the app to distinguish and apply all materials from the collection to the models before rendering. Thus providing a way to render many combinations.
 
-The "parameters" field is used to specify inputs to the app to trigger different events. Most of these are self explanatory, but are spelled out here:
+The "parameters" field is used to specify inputs to the app to trigger different events. Most of these are self-explanatory, but are spelled out here:
 - "enable_blacklist" -> enables the blacklist option
 - "enable_whitelist" -> enables the whitelist option
 - "enable_logging" -> enables output logging to a file
@@ -107,7 +107,7 @@ Note 2: The blacklist has a higher priority than the whitelist.
 
 The "orthographic_components" field is used to specify which models should use the orthographic camera view instead of perspective. The default camera view is perspective. Specify the blender file name with only alphanumerics.
 
-The "materials_combinations" field is used to specify the materials used in the material combinations computation specified by the "parameters" -> "combinatorial_type" if "enable_material_combinations" is enabled
+The "materials_combinations" field is used to specify the materials used in the material combinations' computation specified by the "parameters" -> "combinatorial_type" if "enable_material_combinations" is enabled
 
 
 blender_settings.json:
@@ -221,7 +221,7 @@ types.json:
     "stat_types": [
         "clear_all",
         "camera_align",
-        "camera_persp",
+        "camera_perspective",
         "append_for_collection",
         "render",
         "skipped",
@@ -240,7 +240,7 @@ types.json:
     ]
 }
 
-The "stat_types" field specifies the different actions that the app should track if "enable_stat_tracking" is enabled. At the end of execution, the app will output how many times each action happended.
+The "stat_types" field specifies the different actions that the app should track if "enable_stat_tracking" is enabled. At the end of execution, the app will output how many times each action occurred.
 
 The "time_types" field specifies the different actions that the app should track if "enable_time_tracking" is enabled. At the end of execution, the app will output how long the app spent in each area of the code performing each action. This is useful for debugging and finding where the app is spending most of its time.
 
@@ -250,7 +250,7 @@ Once everything is set appropriately in the settings files, the directory struct
 - All collection directories need to be at the path of "search_dir"
 - The output directory should be at the path of "output_dir". If it is not, it will be created
 
-The models inside of each of the blender files need to have their collection to be found named the same as the collection specified. For example:
+The models inside each of the blender files need to have their collection to be found named the same as the collection specified. For example:
 
 - In a material collection that is specified in app_settings.json as "Materials", each blender file needs to have a collection named "Materials"
 

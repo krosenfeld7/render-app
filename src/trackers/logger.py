@@ -29,7 +29,6 @@ class Logger:
             self._file_handler.setLevel(INFO)
             self._logger.addHandler(self._file_handler)
 
-
     def info(self,
              msg,
              *args,
@@ -66,7 +65,8 @@ def logger(name: Optional[str] = __name__) -> Logger:
     global _logger_instances
     if name not in _logger_instances:
         log_name = path.join(app_settings().paths().log_dir(),
-                             str(strftime("%m-%d-%Y_%H-%M-%S")) + '_log.txt')
+                             str(strftime("%m-%d-%Y_%H-%M-%S"))
+                             + '_log.txt')
         _logger_instances[name] = Logger(name, log_name)
 
     return _logger_instances[name]

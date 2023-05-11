@@ -31,9 +31,11 @@ class SettingsUtility:
         scene.render.engine = render_settings.engine()
         scene.render.resolution_x = render_settings.res_x()
         scene.render.resolution_y = render_settings.res_y()
-        scene.render.resolution_percentage = render_settings.res_percent()
+        scene.render.resolution_percentage = \
+            render_settings.res_percent()
         scene.render.use_border = render_settings.bordered()
-        scene.render.film_transparent = render_settings.transparent_background()
+        scene.render.film_transparent = \
+            render_settings.transparent_background()
 
     @staticmethod
     def update_view_settings(scene: Any) -> None:

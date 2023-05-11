@@ -4,7 +4,8 @@
 
 from itertools import combinations, permutations, product
 
-from src.classes.exceptions import InvalidConfigurationException, InvalidMaterialException
+from src.classes.exceptions import InvalidConfigurationException, \
+    InvalidMaterialException
 from src.classes.overseer import Overseer
 from src.parsers.settings_parser import app_settings
 from src.utilities.clean_utility import CleanUtility
@@ -21,20 +22,23 @@ class MaterialOverseer(Overseer):
                  materials: list) -> None:
         super(MaterialOverseer, self).__init__(repeat)
         self._materials = materials
-        self._names = CleanUtility.cleanup_other_components([material.name
-                                                             for material in materials])
+        self._names = CleanUtility.cleanup_other_components(
+            [material.name for material in materials]
+        )
         self._material_index = 0
 
     def update(self) -> None:
-        raise NotImplementedError("MaterialOverseer update must be implemented")
+        raise NotImplementedError("MaterialOverseer "
+                                  "update must be implemented")
 
     def iteration_count(self) -> int:
-        raise NotImplementedError("MaterialOverseer iteration_count must be implemented")
+        raise NotImplementedError("MaterialOverseer "
+                                  "iteration_count must be implemented")
 
 
 class DefaultMaterialOverseer(MaterialOverseer):
-    """ This class provides the default material overseer. This supports applying each material
-        to each object in the scene. """
+    """ This class provides the default material overseer.
+        This supports applying each material to each object in the scene. """
 
     def __init__(self,
                  repeat: int,
@@ -42,13 +46,16 @@ class DefaultMaterialOverseer(MaterialOverseer):
         super(DefaultMaterialOverseer, self).__init__(repeat, materials)
 
     def update(self) -> None:
-        """ Updates this overseer and moves it forward to the next state. This overseer simply
-            sets the all meshes material to the next material in order. """
+        """ Updates this overseer and moves it forward to the next state.
+            This overseer simply sets the all meshes material to the next
+            material in order. """
 
         # ensure that we are using a valid material
         if self._material_index >= len(self._materials):
-            raise InvalidMaterialException("Hit a material index that is out of the valid range: "
-                                           + str(self._material_index) + ", max: "
+            raise InvalidMaterialException("Hit a material index that is "
+                                           "out of the valid range: "
+                                           + str(self._material_index)
+                                           + ", max: "
                                            + str(len(self._materials))
                                            + ", for materials")
 
@@ -60,8 +67,9 @@ class DefaultMaterialOverseer(MaterialOverseer):
         self._current_count = 0
         # set the material of all meshes in the scene
         meshes = MeshUtility.all_meshes_in_scene()
-        MaterialUtility.update_meshes_with_material(meshes,
-                                                    self._materials[self._material_index])
+        MaterialUtility.update_meshes_with_material(
+            meshes, self._materials[self._material_index]
+        )
         self._material_index += 1
         self._material_index %= len(self._materials)
 
@@ -79,8 +87,9 @@ class DefaultMaterialOverseer(MaterialOverseer):
 
 
 class VariableMaterialOverseer(MaterialOverseer):
-    """ This class provides the variable material overseer. This supports applying each material
-        to different collections in the scene. See README for details about each type. """
+    """ This class provides the variable material overseer.
+        This supports applying each material to different collections in the
+        scene. See README for details about each type. """
 
     @staticmethod
     def specified_combos(combos: list,
@@ -91,7 +100,8 @@ class VariableMaterialOverseer(MaterialOverseer):
         if combo_length < len(app_settings().collections()):
             raise InvalidMaterialException(
                 "Insufficient specified materials for material_combinations, "
-                "expected: f{len(app_settings().collections())}, got: f{combo_length}")
+                "expected: f{len(app_settings().collections())}, "
+                "got: f{combo_length}")
 
         return combos
 
@@ -109,19 +119,22 @@ class VariableMaterialOverseer(MaterialOverseer):
         self._materials_by_names = dict()
         # retrieves the material names for each material
         for index in range(len(self._materials)):
-            self._materials_by_names[self._names[index]] = self._materials[index]
+            self._materials_by_names[self._names[index]] = \
+                self._materials[index]
 
         # retrieves all collections that are not material collections
         self._immaterial_collections = MaterialUtility.get_immaterial_collections()
         function = self.func_map[app_settings().parameters().combinatorial_type()]
         # compute the material combinations based on the method provided
-        self._material_combinations = list(function(app_settings().material_combinations(),
-                                                    len(self._immaterial_collections)))
+        self._material_combinations = list(function(
+            app_settings().material_combinations(),
+            len(self._immaterial_collections)
+        ))
         self._material_combo_index = 0
 
     def update(self) -> None:
-        """ Updates this overseer and moves it forward to the next state. This overseer sets
-            the materials of meshes based on the combinations. """
+        """ Updates this overseer and moves it forward to the next state.
+            This overseer sets the materials of meshes based on the combinations. """
 
         if self._current_count < self._repeat:
             self._current_count += 1
@@ -134,14 +147,18 @@ class VariableMaterialOverseer(MaterialOverseer):
             collection = self._immaterial_collections[index]
             material_name = material_combo[index]
 
-            # updates all meshes in the collection with the correct material as specified for this combination
+            # updates all meshes in the collection with the correct
+            # material as specified for this combination
             meshes = MeshUtility.all_meshes_in_collection(collection)
             if material_name not in self._materials_by_names:
-                raise InvalidConfigurationException("Material: " + material_name + " not specified")
+                raise InvalidConfigurationException("Material: "
+                                                    + material_name
+                                                    + " not specified")
 
             # perform the update
-            MaterialUtility.update_meshes_with_material(meshes,
-                                                        self._materials_by_names[material_name])
+            MaterialUtility.update_meshes_with_material(
+                meshes, self._materials_by_names[material_name]
+            )
 
         self._material_combo_index += 1
         self._material_combo_index %= len(self._material_combinations)

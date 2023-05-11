@@ -6,7 +6,8 @@ from os import path
 
 
 class CleanUtility:
-    """ This class provides basic cleaning operations for different components. """
+    """ This class provides basic cleaning operations
+        for different components. """
 
     @staticmethod
     def clean_file_component(file: str) -> str:
@@ -25,10 +26,12 @@ class CleanUtility:
     def cleanup_file_components(file_components: list) -> list:
         """ Cleans all files. """
 
-        return [CleanUtility.clean_file_component(component) for component in file_components]
+        return [CleanUtility.clean_file_component(component)
+                for component in file_components]
 
     @staticmethod
     def cleanup_other_components(info_components: list) -> list:
         """ Cleans all other components. """
 
-        return [CleanUtility.clean_other_component(component) for component in info_components]
+        return [CleanUtility.clean_other_component(component)
+                for component in info_components]

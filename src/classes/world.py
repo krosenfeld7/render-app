@@ -7,6 +7,7 @@ from typing import Any
 from src.parsers.settings_parser import blender_settings
 
 
+# noinspection SpellCheckingInspection
 class World:
     """ This class provides a world object that retains reference
         to the scene's world and provides helpful world operations. """
@@ -25,7 +26,8 @@ class World:
 
         background_settings = blender_settings().background_settings()
         for node in self._world_scene.node_tree.nodes:
-            # we only want to update the nodes that are actually the background
+            # we only want to update the nodes that are
+            # actually the background
             if node.type == 'BACKGROUND':
                 # we set the color and strength for good measure
                 node.inputs['Color'].default_value = \
@@ -37,7 +39,8 @@ class World:
         """ Sets this world's hdri. """
 
         # creates the new hdri node
-        node_env = self._world_scene.node_tree.nodes.new('ShaderNodeTexEnvironment')
+        node_env = \
+            self._world_scene.node_tree.nodes.new('ShaderNodeTexEnvironment')
         node_env.image = data.images.load(hdri_path)
         node_env.location = -300, 0
 
@@ -50,8 +53,10 @@ class World:
 
         if node_background is not None:
             # link the hdri node to the background
-            self._world_scene.node_tree.links.new(node_env.outputs['Color'],
-                                                  node_background.inputs['Color'])
+            self._world_scene.node_tree.links.new(
+                node_env.outputs['Color'],
+                node_background.inputs['Color']
+            )
 
 
 _instance = None

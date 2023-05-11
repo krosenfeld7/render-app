@@ -6,7 +6,8 @@ from sys import argv, exit
 
 from src.classes.camera import camera
 from src.parsers.directory_parser import parse_directories
-from src.parsers.settings_parser import app_settings, blender_settings, type_settings
+from src.parsers.settings_parser import app_settings, blender_settings, \
+    type_settings
 from src.trackers.logger import logger
 from src.trackers.stat_tracker import stat_tracker
 from src.trackers.time_tracker import time_tracker
@@ -25,14 +26,19 @@ class Driver:
             calls into the overseers and executes the main loop. """
 
         # pass the files and material information to the utility
-        # this performs all parsing necessary to determine what will be rendered
-        overseer = OverseerUtility(files, MaterialUtility.get_materials(files))
+        # this performs all parsing necessary to determine what
+        # will be rendered
+        overseer = OverseerUtility(
+            files,
+            MaterialUtility.get_materials(files)
+        )
 
         # we want to indicate if nothing is available to render
         if overseer.total_iterations_to_execute == 0:
             logger().info("No valid renders found")
 
-        # call the overseer update which will dispatch to each of the sub overseers
+        # call the overseer update which will dispatch to each of
+        # the sub overseers
         for index in range(overseer.total_iterations_to_execute):
             overseer.update()
 

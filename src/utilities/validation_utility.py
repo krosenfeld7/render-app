@@ -53,7 +53,10 @@ class ValidationUtility:
     def validate_materials(materials: list) -> list:
         """ Validates each material in the list. """
 
-        validated_material_names = ValidationUtility.validate_components([material.name
-                                                                          for material in materials],
-                                                                         app_settings().material_collection())
-        return [material for material in materials if material.name in validated_material_names]
+        validated_material_names = ValidationUtility.validate_components(
+            [material.name for material in materials],
+            app_settings().material_collection()
+        )
+
+        return [material for material in materials
+                if material.name in validated_material_names]

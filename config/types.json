@@ -2,7 +2,7 @@
     "stat_types": [
         "clear_all",
         "camera_align",
-        "camera_persp",
+        "camera_perspective",
         "append_for_collection",
         "render",
         "skipped",

@@ -14,6 +14,9 @@ class Camera:
     """ This class provides a camera object that retains reference
         to the scene's camera and provides helpful camera operations. """
 
+    PERSPECTIVE = 'PERSP'
+    ORTHOGRAPHIC = 'ORTHO'
+
     def __init__(self,
                  camera_name='Camera',
                  scene_name='Scene') -> None:
@@ -25,13 +28,14 @@ class Camera:
                                   perspective: bool) -> None:
         """ Sets the camera perspective. """
 
-        self.set_camera_perspective('PERSP' if perspective else 'ORTHO')
+        self.set_camera_perspective(Camera.PERSPECTIVE if perspective
+                                    else Camera.ORTHOGRAPHIC)
 
     def set_camera_perspective(self,
                                perspective: str) -> None:
         """ Helper function for setting the camera perspective. """
 
-        stat_tracker().update_stat("camera_persp", msg=perspective)
+        stat_tracker().update_stat("camera_perspective", msg=perspective)
         self._camera.data.type = perspective
 
     def point_camera_at_origin(self) -> None:
@@ -52,8 +56,10 @@ class Camera:
     def set_camera_scene_resolution(self) -> None:
         """ Sets the camera resolution based on the settings. """
 
-        data.scenes[self._scene_name].render.resolution_x = blender_settings().render_settings().res_x()
-        data.scenes[self._scene_name].render.resolution_y = blender_settings().render_settings().res_y()
+        data.scenes[self._scene_name].render.resolution_x = \
+            blender_settings().render_settings().res_x()
+        data.scenes[self._scene_name].render.resolution_y = \
+            blender_settings().render_settings().res_y()
 
     @staticmethod
     def align_camera_to_active_objects():
