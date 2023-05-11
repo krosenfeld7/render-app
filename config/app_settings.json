@@ -1,7 +1,7 @@
 {
     "collections": {
-        "1": "Centers",
         "2": "Materials",
+        "1": "Centers",
         "0": "Petals"
     },
     "constants": [
@@ -13,7 +13,7 @@
         "enable_logging": false,
         "enable_stat_tracking": true,
         "enable_time_tracking": true,
-        "overwrite_all": false,
+        "overwrite_all": true,
         "enable_material_combinations": false,
         "combinatorial_type": "specified"
     },
@@ -30,9 +30,14 @@
     "blacklist": [
     ],
     "whitelist": [
-        "petals011",
-        "flaringseedoflife",
-        "shinygold"
+        "petals014",
+        "fullypetaled",
+        "fractalizedflower",
+        "squarefractal",
+        "vinefractal",
+        "shinygold",
+        "shinysilver",
+        "rosegold"
     ],
     "orthographic_components": [
         "honeycomb",

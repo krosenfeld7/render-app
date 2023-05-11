@@ -13,4 +13,4 @@ def execute(parameters: dict) -> None:
     blend_file = os.path.join(os.getcwd(), path_settings.main_file())
     driver = os.path.join(os.getcwd(), path_settings.driver())
 
-    run([blender_exe, "--python", driver, blend_file, "--", *parameters.values()])
+    run([blender_exe, "-b", "--python", driver, blend_file, "--", *parameters.values()])

@@ -11,7 +11,7 @@
         "samples": 256,
         "bloom": true,
         "ambient_occlusion": true,
-        "bloom_intensity": 0.075
+        "bloom_intensity": 0.025
     },
     "cycles_settings": {
         "samples": 32,
@@ -25,14 +25,14 @@
         "look": "Very High Contrast",
         "view_transform": "Filmic",
         "default_exposure": 0.0,
-        "exposure_step": 0.5,
+        "exposure_step": 0.0,
         "start_exposure": -2.0,
         "end_exposure": 2.0,
         "enable_exposure_variability": false
     },
     "image_settings": {
         "file_format": "PNG",
-        "color_mode": "RGBA",
+        "color_mode": "RGB",
         "color_depth": "8",
         "compression": 0
     },
