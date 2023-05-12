@@ -267,3 +267,9 @@ The models inside each of the blender files need to have their collection to be 
 
 If you wish to change the name of the settings files, then you will need to update them in `main.py`.
 
+**Figma Board:**
+
+https://www.figma.com/file/9Bkj0qB5tsCosPKz8Tawl0/Render-App?type=whiteboard&node-id=0%3A1&t=7nKfHeNIx1pvY9Wy-1
+
+**High Level Design:**
+![High Level Design](https://github.com/7kevinr7/render-app/blob/master/design/design_flow.png)
