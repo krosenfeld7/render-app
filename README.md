@@ -1,4 +1,4 @@
-`render-app` by Kevin Rosenfeld
+`render-app`
 
 **Overview:**
 
